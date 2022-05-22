@@ -3,25 +3,8 @@ import Header from './components/Header';
 import Sort from './components/Sort';
 import PizzaBlock from './components/PizzaBlock';
 import './scss/app.scss';
+import data from './assets/pizza.json' 
 
-const data = [
-    {
-        title: 'Мексиканская пицца',
-        price: '500'
-    },
-    {
-        title: 'Пеперонни',
-        price: '600'
-    },
-    {
-        title: 'Гавайская',
-        price: '700'
-    },
-    {
-        title: 'Пицца 4 сыра',
-        price: '800'
-    },
-]
 
 function App() {
 	return (
@@ -35,8 +18,10 @@ function App() {
 					</div>
 					<h2 className='content__title'>Все пиццы</h2>
 					<div className='content__items'>
-						{data.map(({title, price}) => (
-							<PizzaBlock title={title} price={price}/>
+						{data.map((obj) => (
+							<PizzaBlock
+								{...obj}
+							/>
 						))}
 					</div>
 				</div>
