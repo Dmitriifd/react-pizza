@@ -1,17 +1,15 @@
 import { useState } from 'react';
 
-
-
 function Sort() {
-    const [open, setOpen] = useState(false);
-    const [selected, setSelected] = useState(0);
-    const list = ['популярности', 'цене', 'алфавиту'];
-    const sortName = list[selected];
+	const [open, setOpen] = useState(false);
+	const [selected, setSelected] = useState(0);
+	const list = ['популярности', 'цене', 'алфавиту'];
+	const sortName = list[selected];
 
-    const onClickListItem = (i) => {
-        setSelected(i);
-        setOpen(!open)
-    };
+	const onClickListItem = (i) => {
+		setSelected(i);
+		setOpen(!open);
+	};
 
 	return (
 		<div className='sort'>
@@ -51,3 +49,4 @@ function Sort() {
 }
 
 export default Sort;
+
