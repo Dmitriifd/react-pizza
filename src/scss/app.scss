@@ -48,6 +48,10 @@ body {
     @media (max-width: 420px) {
         grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     }
+    @media (min-width: 1400px) {
+        grid-template-columns: repeat(4, 280px);
+        justify-content: space-between;
+    }
   }
 
   &__top {
