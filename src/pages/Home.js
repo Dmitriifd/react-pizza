@@ -1,12 +1,12 @@
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
+import { SearchContext } from '../App';
 
-
-function Home({ searchValue }) {
+function Home() {
 	const [items, setItems] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 
@@ -16,6 +16,8 @@ function Home({ searchValue }) {
 		name: 'Популярности',
 		sortProperty: 'rating',
 	});
+
+	const { searchValue } = useContext(SearchContext);
 
 	useEffect(() => {
 		setIsLoading(true);
@@ -38,12 +40,10 @@ function Home({ searchValue }) {
 		window.scrollTo(0, 0);
 	}, [categoryId, sortType, searchValue, currentPage]);
 
-	const pizzas = items
-		.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
+	const pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
 	const skeletons = [...new Array(6)].map((_, index) => (
 		<Skeleton key={index} />
 	));
-    
 
 	return (
 		<>
