@@ -1,19 +1,21 @@
 import { Link } from 'react-router-dom';
-import logoSvg from '../assets/img/pizza-logo.svg'
+import logoSvg from '../assets/img/pizza-logo.svg';
+import Search from './Search';
 
-function Header() {
+function Header({ searchValue, setSearchValue }) {
 	return (
 		<div className='header'>
 			<div className='container'>
-				<Link to="/">
-				<div className='header__logo'>
-					<img width='38' src={logoSvg} alt='Pizza logo' />
-					<div>
-						<h1>React Pizza</h1>
-						<p>самая вкусная пицца во вселенной</p>
+				<Link to='/'>
+					<div className='header__logo'>
+						<img width='38' src={logoSvg} alt='Pizza logo' />
+						<div>
+							<h1>React Pizza</h1>
+							<p>самая вкусная пицца во вселенной</p>
+						</div>
 					</div>
-				</div>
-                </Link >
+				</Link>
+				<Search searchValue={searchValue} setSearchValue={setSearchValue} />
 				<div className='header__cart'>
 					<Link to='/cart' className='button button--cart'>
 						<span>520 ₽</span>
@@ -50,7 +52,6 @@ function Header() {
 						<span>3</span>
 					</Link>
 				</div>
-				
 			</div>
 		</div>
 	);
