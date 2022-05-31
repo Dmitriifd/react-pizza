@@ -15,7 +15,7 @@ import { decrement, increment } from './redux/slices/filterSlice';
 export const SearchContext = React.createContext();
 
 function App() {
-	const count = useSelector((state) => state.counter.count);
+
 	const dispatch = useDispatch();
 
 	const [searchValue, setSearchValue] = useState('');
