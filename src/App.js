@@ -9,14 +9,11 @@ import './scss/app.scss';
 import Cart from './pages/Cart';
 import { useState } from 'react';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { decrement, increment } from './redux/slices/filterSlice';
 
 export const SearchContext = React.createContext();
 
 function App() {
 
-	const dispatch = useDispatch();
 
 	const [searchValue, setSearchValue] = useState('');
 
