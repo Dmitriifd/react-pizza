@@ -1,15 +1,25 @@
 import Categories from '../components/Categories';
-import Sort from '../components/Sort';
+import Sort, { sortList } from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useRef } from 'react';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
 import { SearchContext } from '../App';
 import { useSelector, useDispatch } from 'react-redux';
-import { setCategoryId, setCurrentPage } from '../redux/slices/filterSlice';
+import {
+	setCategoryId,
+	setCurrentPage,
+	setFilters,
+} from '../redux/slices/filterSlice';
 import axios from 'axios';
+import qs from 'qs';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
+    const navigate = useNavigate();
+	const isSearch = useRef(false);
+	const isMounted = useRef(false);
+
 	// const categoryId = useSelector((state) => state.filter.categoryId);
 	// const sortType = useSelector((state) => state.filter.sort.sortProperty);
 	const { categoryId, sort, currentPage } = useSelector(
@@ -28,12 +38,11 @@ function Home() {
 		dispatch(setCategoryId(id));
 	};
 
-    const onChangePage = (number) => {
-        dispatch(setCurrentPage(number));
-    }
+	const onChangePage = (number) => {
+		dispatch(setCurrentPage(number));
+	};
 
-
-	useEffect(() => {
+	const fetchPizzas = () => {
 		setIsLoading(true);
 
 		const sortBy = sortType.replace('-', '');
@@ -51,6 +60,47 @@ function Home() {
 			});
 
 		window.scrollTo(0, 0);
+	};
+
+	// Если изменили параметры и был первый рендер
+	useEffect(() => {
+		console.log(isMounted.current);
+		if (isMounted.current) {
+			const queryString = qs.stringify({
+				sortProperty: sort.sortProperty,
+				categoryId,
+				currentPage,
+			});
+            console.log(queryString);
+            // console.log(navigate(`?${queryString}`));
+			// navigate(`?${queryString}`);
+		}
+		isMounted.current = true;
+	}, [categoryId, sortType, currentPage]);
+
+	// Если был первый рендер, то проверяем url параметры и сохраняем в  редаксе
+	useEffect(() => {
+		if (window.location.search) {
+			const params = qs.parse(window.location.search.substring(1));
+			const sort = sortList.find(
+				(obj) => obj.sortProperty === params.sortProperty
+			);
+			dispatch(
+				setFilters({
+					...params,
+					sort,
+				})
+			);
+			isSearch.current = true;
+		}
+	}, []);
+
+	// Если был первый рендер, то запрашиваем пиццы
+	useEffect(() => {
+		if (!isSearch.current) {
+            fetchPizzas();
+		}
+		isSearch.current = false;
 	}, [categoryId, sortType, searchValue, currentPage]);
 
 	const pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
