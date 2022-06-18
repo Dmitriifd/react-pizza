@@ -1,7 +1,11 @@
-import { useState } from 'react';
+
+type Categoriesprops = {
+	value: number;
+	onChangeCategory: any
+};
 
 
-function Categories({ value, onChangeCategory }) {
+const Categories: React.FC<Categoriesprops> = ({ value, onChangeCategory }) => {
 	const categories = [
 		'Все',
 		'Мясные',
@@ -30,6 +34,6 @@ function Categories({ value, onChangeCategory }) {
 			</ul>
 		</div>
 	);
-}
+};
 
 export default Categories;
