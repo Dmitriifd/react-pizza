@@ -1,7 +1,7 @@
 
 type Categoriesprops = {
 	value: number;
-	onChangeCategory: any
+	onChangeCategory: (i: number) => void
 };
 
 
