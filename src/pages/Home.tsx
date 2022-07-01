@@ -12,6 +12,7 @@ import { setCategoryId, setCurrentPage, setFilters } from '../redux/filter/slice
 import { selectFilter } from '../redux/filter/selectors';
 import { fetchPizzas } from '../redux/pizza/asyncActions';
 import { SearchPizzaParams } from '../redux/pizza/types';
+import { selectPizzaData } from '../redux/pizza/selectors';
 
 const Home: React.FC = () => {
 	const isSearch = useRef(false);
@@ -119,8 +120,5 @@ const Home: React.FC = () => {
 	);
 };
 
-function selectPizzaData(selectPizzaData: any): { items: any; status: any; } {
-    throw new Error('Function not implemented.');
-}
-
 export default Home;
+
