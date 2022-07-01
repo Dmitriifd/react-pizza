@@ -4,29 +4,21 @@ import PizzaBlock from '../components/PizzaBlock/index';
 import { useCallback, useEffect, useRef } from 'react';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination/index';
-import { useSelector, useDispatch } from 'react-redux';
-import {
-	FilterSliceState,
-	selectFilter,
-	setCategoryId,
-	setCurrentPage,
-	setFilters,
-} from '../redux/slices/filterSlice';
+import { useSelector } from 'react-redux';
+
 import qs from 'qs';
-import { Link } from 'react-router-dom';
-import {
-	fetchPizzas,
-	SearchPizzaParams,
-	selectPizzaData,
-} from '../redux/slices/pizzaSlice';
 import { useAppDispatch } from '../redux/store';
+import { setCategoryId, setCurrentPage, setFilters } from '../redux/filter/slice';
+import { selectFilter } from '../redux/filter/selectors';
+import { fetchPizzas } from '../redux/pizza/asyncActions';
+import { SearchPizzaParams } from '../redux/pizza/types';
 
 const Home: React.FC = () => {
 	const isSearch = useRef(false);
 	const isMounted = useRef(false);
 
-	const { categoryId, sort, currentPage, searchValue } =
-		useSelector(selectFilter);
+	 const { categoryId, sort, currentPage, searchValue } =
+			useSelector(selectFilter);
 	const { items, status } = useSelector(selectPizzaData);
 	const sortType = sort.sortProperty;
 
@@ -126,5 +118,9 @@ const Home: React.FC = () => {
 		</>
 	);
 };
+
+function selectPizzaData(selectPizzaData: any): { items: any; status: any; } {
+    throw new Error('Function not implemented.');
+}
 
 export default Home;
