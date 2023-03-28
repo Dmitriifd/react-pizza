@@ -13,6 +13,7 @@ import { selectFilter } from '../redux/filter/selectors';
 import { fetchPizzas } from '../redux/pizza/asyncActions';
 import { SearchPizzaParams } from '../redux/pizza/types';
 import { selectPizzaData } from '../redux/pizza/selectors';
+import React from 'react';
 
 const Home: React.FC = () => {
 	const isSearch = useRef(false);
